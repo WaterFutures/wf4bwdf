@@ -106,7 +106,7 @@ def _load_weather_data() -> pd.DataFrame:
 
     return weather
     
-TEST_WEEKS_ABSOLUTE = [82, 96, 107, 114] # Test weeks list as in Figure 1 of the calendar
+TEST_WEEKS_ABSOLUTE = [82, 96, 107, 114] # Evaluation weeks list as in Figure 1 of the calendar
 
 def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
     """Creates a Pandas DataFrame with calendar and meta information for each measurement."""
@@ -121,7 +121,7 @@ def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
     # - week number (starting from 0, increase every monday at midnight)
     awn = 0
     absolute_week_numbers = []
-    # - is test week
+    # - is Evaluation week
     test_week_flags = []
     # - competition iteration in which that date falls
     current_iter = 1
@@ -140,13 +140,13 @@ def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
             awn += 1
         absolute_week_numbers.append(awn)
         
-        # Check if current date is in a test week
+        # Check if current date is in a Evaluation week
         if awn in TEST_WEEKS_ABSOLUTE:
             test_week_flags.append(True)
             test_week_active = True
         else:
             test_week_flags.append(False)
-            # If we just finished a test week, increment iteration
+            # If we just finished a Evaluation week, increment iteration
             if test_week_active:
                 current_iter += 1
                 test_week_active = False
@@ -157,7 +157,7 @@ def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
         "Holiday": holiday_flags,
         "Dataset week number": absolute_week_numbers,
         "Iteration": iterations,
-        "Test week": test_week_flags
+        "Evaluation week": test_week_flags
     }, index=dates)
 
     return calendar_df
@@ -199,7 +199,7 @@ def load_iteration_dataset(
         filtered_dataset[key] = dataset[key].loc[mask].copy()
 
     # Adjust the inflows dataset to remove the test data. Set the values to NaN
-    mask = filtered_dataset[CALENDAR_KEY]["Test week"]
+    mask = filtered_dataset[CALENDAR_KEY]["Evaluation week"]
     filtered_dataset[DMA_INFLOWS_KEY].loc[mask, :] = float('nan')
 
     return filtered_dataset
