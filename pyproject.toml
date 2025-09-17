@@ -1,6 +1,6 @@
 [project]
 name = "wf4bwdf"
-version = "0.1.1"
+version = "0.1.2"
 description = "Water-Futures Team implementation of the Battle of the Water Demand Forecasting"
 readme = "README.md"
 license = "MIT"
@@ -17,11 +17,19 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "openpyxl>3.1",
     "pandas>2.1.0",
 ]
 
 [project.urls]
 Repository = "https://github.com/WaterFutures/wf4bwdf"
+
+[tool.setuptools.package-data]
+wf4bwdf = [
+    "data/InflowData.xlsx",
+    "data/WeatherData.xlsx",
+    "submissions/bwdf-competitors/TeamSolutions.xlsx"
+]
 
 [build-system]
 requires = ["uv_build>=0.8.17,<0.9.0"]
