@@ -14,3 +14,7 @@ def load_inflows():
         print("fallback to local")
         
         
+def load_solutions():
+    data_path = Path(__file__).parent.parent.parent / "submissions" / "BWDFCompetitorsSolutions.xlsx"
+    print(data_path)
+    return pd.read_excel(data_path, sheet_name=None)
