@@ -202,7 +202,7 @@ wheels = [
 
 [[package]]
 name = "wf4bwdf"
-version = "0.1.4"
+version = "0.1.5"
 source = { editable = "." }
 dependencies = [
     { name = "holidays" },
