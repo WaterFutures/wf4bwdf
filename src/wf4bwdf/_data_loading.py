@@ -62,23 +62,32 @@ INFLOWS_FILE='InflowData.xlsx'
 
 DATETIME='Datetime'
 
-# basic preprocessing to set the first column as the index with name date
-def _preprocess_date_column(df: pd.DataFrame) -> pd.DataFrame:
-    assert isinstance(df, pd.DataFrame) and df.columns[0].startswith("Date"
-                                                                     )
-    df = df.copy()
-    df.iloc[:,0] = pd.to_datetime(df.iloc[:,0], format='%d/%m/%Y %H:%M')
-    df = df.rename(columns={df.columns[0]: DATETIME})
-    df = df.set_index(DATETIME)
-    df.index = df.index.tz_localize('Europe/Rome', ambiguous= 'infer')
-    return df
+def _read_and_process_ss_excel(filename: Path) -> pd.DataFrame:
 
+    df = pd.read_excel(
+        filename,
+        parse_dates=[0],  # Parse first column as datetime
+        date_format='%d/%m/%Y %H:%M',
+        index_col=0,  # Set first column as index
+        na_values=['', ' ', 'NULL', 'null', '-', 'NaN', 'nan']  # Handle various NaN representations
+    )
+
+    # Convert all columns to float64 (they should all be numeric)
+    for col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce').astype('float64')
+
+    df.index.name = DATETIME
+
+    # Make the datetime time zone aware so that we can have CET/CEST
+    df.index = df.index.tz_localize('Europe/Rome', ambiguous='infer')
+
+    return df
+    
 def _load_complete_inflows(alphabetical_names:bool=False) -> pd.DataFrame:
     """Load demand data from bundled package data. Performs cleaning and timing already"""
     assert isinstance(alphabetical_names, bool)
 
-    inflows = pd.read_excel(INPUT_DIR/INFLOWS_FILE)
-    inflows = _preprocess_date_column(df= inflows)
+    inflows = _read_and_process_ss_excel(INPUT_DIR/INFLOWS_FILE)
 
      # default: use numbers to call the dmas
     short_names = DMAS_NUMERICAL_SHORTNAMES
@@ -98,8 +107,7 @@ WEATHER_UNITS=['mm', '°C', '%', 'km/h']
 
 def _load_weather_data() -> pd.DataFrame:
     """Load demand data from bundled package data. Performs cleaning and timing already"""
-    weather = pd.read_excel(INPUT_DIR/WEATHER_FILE)
-    weather = _preprocess_date_column(df= weather)
+    weather = _read_and_process_ss_excel(INPUT_DIR/WEATHER_FILE)
 
     weather.columns = WEATHER_FEATURES
     weather.attrs['units'] = WEATHER_UNITS
