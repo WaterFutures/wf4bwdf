@@ -4,7 +4,7 @@ import holidays
 import pandas as pd
 
 DMAS_NUMERICAL_NAMES = [
-    f"DMA_{i}" for i in range(1, 11)
+    f"DMA {i}" for i in range(1, 11)
 ]
 
 DMAS_NUMERICAL_SHORTNAMES = [
@@ -12,7 +12,7 @@ DMAS_NUMERICAL_SHORTNAMES = [
 ]
 
 DMAS_ALPHABETICAL_NAMES = [
-    f"DMA_{chr(65 + i)}" for i in range(10)
+    f"DMA {chr(65 + i)}" for i in range(10)
 ]
 
 DMAS_ALPHABETICAL_SHORTNAMES = [
@@ -60,7 +60,7 @@ INPUT_DIR=Path(__file__).parent / "data"
 
 INFLOWS_FILE='InflowData.xlsx'
 
-DATE='Date'
+DATETIME='Datetime'
 
 # basic preprocessing to set the first column as the index with name date
 def _preprocess_date_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -68,8 +68,8 @@ def _preprocess_date_columns(df: pd.DataFrame) -> pd.DataFrame:
                                                                      )
     df = df.copy()
     df.iloc[:,0] = pd.to_datetime(df.iloc[:,0], format='%d/%m/%Y %H:%M')
-    df = df.rename(columns={df.columns[0]: DATE})
-    df = df.set_index(DATE)
+    df = df.rename(columns={df.columns[0]: DATETIME})
+    df = df.set_index(DATETIME)
     df.index = df.index.tz_localize('Europe/Rome', ambiguous= 'infer')
     return df
 
@@ -106,7 +106,17 @@ def _load_weather_data() -> pd.DataFrame:
 
     return weather
     
-TEST_WEEKS_ABSOLUTE = [82, 96, 107, 114] # Evaluation weeks list as in Figure 1 of the calendar
+
+EVAL_WEEKS_ABSOLUTE = [82, 96, 107, 114] # Evaluation weeks list as in Figure 1 of the calendar
+N_EVAL_WEEKS = len(EVAL_WEEKS_ABSOLUTE)
+EVAL_WEEKS_NAMES = [f'W{i}' for i in range(1,N_EVAL_WEEKS+1)]
+
+# Calendar info:
+CEST = 'CEST'
+HOLIDAY = 'Holiday'
+WEEK_NUM_ABSOLUTE = 'Dataset week number'
+ITERATION = 'Iteration'
+EVALUATION_WEEK = 'Evaluation week'
 
 def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
     """Creates a Pandas DataFrame with calendar and meta information for each measurement."""
@@ -122,11 +132,11 @@ def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
     awn = 0
     absolute_week_numbers = []
     # - is Evaluation week
-    test_week_flags = []
+    eval_week_flags = []
     # - competition iteration in which that date falls
     current_iter = 1
     iterations = []
-    test_week_active = False
+    eval_week_active = False
 
     for date in dates:
         cest_flags.append( date.dst() != pd.Timedelta(0) )
@@ -141,23 +151,23 @@ def _synthetize_calendar_info(dates:pd.DatetimeIndex) -> pd.DataFrame:
         absolute_week_numbers.append(awn)
         
         # Check if current date is in a Evaluation week
-        if awn in TEST_WEEKS_ABSOLUTE:
-            test_week_flags.append(True)
-            test_week_active = True
+        if awn in EVAL_WEEKS_ABSOLUTE:
+            eval_week_flags.append(True)
+            eval_week_active = True
         else:
-            test_week_flags.append(False)
+            eval_week_flags.append(False)
             # If we just finished a Evaluation week, increment iteration
-            if test_week_active:
+            if eval_week_active:
                 current_iter += 1
-                test_week_active = False
+                eval_week_active = False
         iterations.append(current_iter)
 
     calendar_df = pd.DataFrame({
-        "CEST": cest_flags,
-        "Holiday": holiday_flags,
-        "Dataset week number": absolute_week_numbers,
-        "Iteration": iterations,
-        "Evaluation week": test_week_flags
+        CEST: cest_flags,
+        HOLIDAY: holiday_flags,
+        WEEK_NUM_ABSOLUTE: absolute_week_numbers,
+        ITERATION: iterations,
+        EVALUATION_WEEK: eval_week_flags
     }, index=dates)
 
     return calendar_df
@@ -184,8 +194,8 @@ def load_iteration_dataset(
         iteration: int,
         use_letters_for_names:bool=False
 ) -> dict[str, pd.DataFrame]:
-    if not isinstance(iteration, int) or iteration < 1 or iteration > 4:
-        raise ValueError("iteration must be an integer between 1 and 4 inclusive")
+    if not isinstance(iteration, int) or iteration < 1 or iteration > N_EVAL_WEEKS:
+        raise ValueError(f"iteration must be an integer between 1 and {N_EVAL_WEEKS} inclusive")
     if not isinstance(use_letters_for_names, bool):
         raise TypeError("use_letters_for_names must be a bool")
     dataset = load_complete_dataset(use_letters_for_names=use_letters_for_names)
@@ -194,12 +204,12 @@ def load_iteration_dataset(
     filtered_dataset = {
         DMA_PROPERTIES_KEY: dataset[DMA_PROPERTIES_KEY]
     }
-    mask = dataset[CALENDAR_KEY]["Iteration"] <= iteration
+    mask = dataset[CALENDAR_KEY][ITERATION] <= iteration
     for key in [DMA_INFLOWS_KEY, WEATHER_KEY, CALENDAR_KEY]:
         filtered_dataset[key] = dataset[key].loc[mask].copy()
 
     # Adjust the inflows dataset to remove the test data. Set the values to NaN
-    mask = filtered_dataset[CALENDAR_KEY]["Evaluation week"]
+    mask = filtered_dataset[CALENDAR_KEY][EVALUATION_WEEK]
     filtered_dataset[DMA_INFLOWS_KEY].loc[mask, :] = float('nan')
 
     return filtered_dataset
