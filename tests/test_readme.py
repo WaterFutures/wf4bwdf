@@ -1,4 +1,5 @@
 import pytest
+import pandas as pd
 from pathlib import Path
 
 import wf4bwdf as bwdf
@@ -40,8 +41,8 @@ def test_example2():
         dataset = bwdf.load_iteration_dataset(iteration, use_letters_for_names=True)
 
         # Compute your forecast: previous week
-        forecast = dataset['dma-inflows'].iloc[-2*168:-168]
-        forecast.index = dataset['dma-inflows'].iloc[-168:].index
+        forecast = dataset['dma-inflows'].iloc[-168:]
+        forecast.index = forecast.index + pd.Timedelta(weeks=1)
 
         # Evaluate the forecast
         results = bwdf.evaluate(forecast)
