@@ -23,11 +23,13 @@ pip install wf4bwdf
 All required dependencies are installed automatically with pip. See `pyproject.toml` for details.
 The project has a minimal dependency, from Python 3.9 and pandas above 2.1 it should work.
 
-A **lightweight implementation** of this package is also available through the [WaterBenchmarkHub](link-to-https://waterfutures.github.io/WaterBenchmarkHub/), which includes only the core functions to load data in memory and evaluate forecasts.
+A **lightweight implementation** of this package is also available through the [WaterBenchmarkHub](https://waterfutures.github.io/WaterBenchmarkHub/), which includes only the core functions to load data in memory and evaluate forecasts.
 
 ## Usage Examples
 
-### 1. Load complete dataset (supplementary information of the Alvisi et al., 2025 paper)
+### 1. Load complete dataset
+The function `load_complete_dataset`  provides access to **DMA inflows and weather data** from the supplementary information of Alvisi et al., (2025) and **also calendar information and other problem metadata** readily available in machine-readable format.
+
 ```python
 import wf4bwdf as bwdf
 
@@ -99,8 +101,6 @@ We welcome contributions to this project! There are several exciting improvement
    ```
 8. **Create a Pull Request** from your fork to the main repository
 
-## Questions?
-
 If you have questions about contributing, feel free to open an issue for discussion before starting work on major features.
 
 Thank you for contributing to the project!
@@ -113,7 +113,6 @@ Those data are available under the terms of Creative Commons Attribution 4.0 Int
 
 ## Citation
 
-### For the Competition and Dataset
 If you use this implementation in your research, please cite the original paper:
 
 ```bibtex
@@ -130,6 +129,8 @@ year={2025},
 pages={04025049}
 } 
 ```
+
+Follow this link to read the [Battle of the Water Demand Forecasting paper](https://ascelibrary.org/doi/full/10.1061/JWRMD5.WRENG-6887).
 
 ---
 
