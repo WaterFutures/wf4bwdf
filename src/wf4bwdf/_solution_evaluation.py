@@ -109,6 +109,56 @@ def _check_evaluate_inputs(
     return forecast
 
 def evaluate(forecast: Union[pd.DataFrame, pd.Series, List[pd.Series]]) -> pd.Series:
+    """
+    Evaluate forecast performance against ground truth data using the Battle of 
+    the Water Demand Forecasting original evalutation weeks and performance indicators.
+    
+    This function computes three performance indicators (PI1, PI2, PI3) for each DMA (District 
+    Metered Area) across different evaluation weeks by comparing forecast values against actual 
+    inflow measurements. It infers automatially the evaluation week and DMA to test
+    based on the input. 
+    
+    Parameters
+    ----------
+    forecast : Union[pd.DataFrame, pd.Series, List[pd.Series]]
+        Forecast data to evaluate. Can be:
+        - DataFrame with DMAs as columns and dates as index
+        - Series with forecast values for a single DMA
+        - List of Series, each representing forecasts for different DMAs
+        The index should contain dates that correspond to the original evaluation weeks.
+        DMA names can be either numerical or alphabetical format and only the existing ones 
+        are evaluated.
+    
+    Returns
+    -------
+    pd.Series
+        A MultiIndex Series with performance indicator values. The index has three levels:
+        - Level 0: 'Evaluation week' name [W1, W2, W3, W4] deduced by the forecast dates
+        - Level 1: DMA identifier (numerical or alphabetical name)
+        - Level 2: Performance indicator name ('PI1', 'PI2', 'PI3')
+        
+        The Series values are the computed performance indicator scores for each 
+        (evaluation_week, dma, pi) combination.
+    
+    Notes
+    -----
+    - Loads ground truth data automatically
+    - Handles both numerical and alphabetical DMA naming conventions
+    - Computes three performance indicators (PI1, PI2, PI3) for comprehensive evaluation
+    - Deduces automatically the evaluation week and DMA(s) to test.
+    
+    Examples
+    --------
+    >>> # Evaluate a DataFrame forecast
+    >>> forecast_df = pd.DataFrame(...)  # forecast data
+    >>> results = evaluate(forecast_df)
+    >>> print(results.loc[('W1', 'DMA 1', 'PI1')])  # Access specific result
+    
+    >>> # Evaluate a single DMA forecast
+    >>> forecast_series = pd.Series(...)  # single DMA forecast
+    >>> results = evaluate(forecast_series)
+    >>> print(results.loc[('W1', 'DMA C', 'PI1')])  # Still need to access as a multi-index
+    """
     # Load ground truth data
     dataset = load_complete_dataset(use_letters_for_names=False)
     calendar = dataset[CALENDAR_KEY]
