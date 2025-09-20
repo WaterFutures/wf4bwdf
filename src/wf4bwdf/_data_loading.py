@@ -63,7 +63,7 @@ INFLOWS_FILE='InflowData.xlsx'
 DATETIME='Datetime'
 
 # basic preprocessing to set the first column as the index with name date
-def _preprocess_date_columns(df: pd.DataFrame) -> pd.DataFrame:
+def _preprocess_date_column(df: pd.DataFrame) -> pd.DataFrame:
     assert isinstance(df, pd.DataFrame) and df.columns[0].startswith("Date"
                                                                      )
     df = df.copy()
@@ -78,7 +78,7 @@ def _load_complete_inflows(alphabetical_names:bool=False) -> pd.DataFrame:
     assert isinstance(alphabetical_names, bool)
 
     inflows = pd.read_excel(INPUT_DIR/INFLOWS_FILE)
-    inflows = _preprocess_date_columns(df= inflows)
+    inflows = _preprocess_date_column(df= inflows)
 
      # default: use numbers to call the dmas
     short_names = DMAS_NUMERICAL_SHORTNAMES
@@ -99,7 +99,7 @@ WEATHER_UNITS=['mm', '°C', '%', 'km/h']
 def _load_weather_data() -> pd.DataFrame:
     """Load demand data from bundled package data. Performs cleaning and timing already"""
     weather = pd.read_excel(INPUT_DIR/WEATHER_FILE)
-    weather = _preprocess_date_columns(df= weather)
+    weather = _preprocess_date_column(df= weather)
 
     weather.columns = WEATHER_FEATURES
     weather.attrs['units'] = WEATHER_UNITS
@@ -213,8 +213,3 @@ def load_iteration_dataset(
     filtered_dataset[DMA_INFLOWS_KEY].loc[mask, :] = float('nan')
 
     return filtered_dataset
-        
-def load_solutions():
-    data_path = Path(__file__).parent.parent.parent / "submissions" / "BWDFCompetitorsSolutions.xlsx"
-    print(data_path)
-    return pd.read_excel(data_path, sheet_name=None)
