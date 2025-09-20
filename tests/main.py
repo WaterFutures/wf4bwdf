@@ -1,33 +1,26 @@
 from pathlib import Path
 
-import pandas as pd
 
-from wf4bwdf._data_loading import load_complete_dataset, load_iteration_dataset
-from wf4bwdf._solution_evaluation import evaluate
-
-from wf4bwdf._data_loading import _preprocess_date_column, DMAS_NUMERICAL_NAMES
+import wf4bwdf as bwdf
 
 def load_solutions():
     data_path = Path(__file__).parent.parent / "submissions" / "BWDFCompetitorsSolutions.xlsx"
     print(data_path)
-    solutions = pd.read_excel(data_path, sheet_name=None)
+    solutions = bwdf.bwdf_competitors_solutions(data_path)
 
     for team, solution in solutions.items():
-        solution = solution.iloc[:, 1:]
-        solution = _preprocess_date_column(solution)
-        solution.columns = DMAS_NUMERICAL_NAMES
         print("-----")
         print(f"Team: {team}")
         print()
-        print(evaluate(solution))
+        print(bwdf.evaluate(solution))
               
     return
 
 def hello() -> str:
     print("Complete dataset:")
-    print(load_complete_dataset())
+    print(bwdf.load_complete_dataset())
     print("Filtered iter 1:")
-    print(load_iteration_dataset(1, use_letters_for_names=True))
+    print(bwdf.load_iteration_dataset(1, use_letters_for_names=True))
     return "Hello from WF 4 BWDF!"
 
 if __name__ == '__main__':
