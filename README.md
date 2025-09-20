@@ -44,18 +44,18 @@ dma_c_inflow = dataset['dma-inflows']['DMA 3']
 ```
 
 ### 2. Evaluate forecasts following the competition requirements
-Evaluate the forecast following the competition requirements means that the function
-works only if the forecast is a complete prediction of the original evaluation week in at least 1 DMA.
+Evaluate the forecast following the competition requirements means that the `evaluate` function works only if the forecast is a complete prediction of one the original evaluation weeks and of at least 1 DMA.
 ```python
 import wf4bwdf as bwdf
 import pandas as pd
 
 for iteration in range(1,5):
-    # Load the data for that iteration (no leak of future information) using letters instead of the numbers
+    # Load the data for that iteration (no leak of future information) using letters instead of the numbers (e.g., 'DMA C')
     dataset = bwdf.load_iteration_dataset(iteration, use_letters_for_names=True)
 
     # Compute your forecast: previous week
     forecast = dataset['dma-inflows'].iloc[-168:]
+    forecast.index = forecast.index + pd.Timedelta(weeks=1)
 
     # Evaluate the forecast
     results = bwdf.evaluate(forecast)

@@ -258,7 +258,8 @@ def load_complete_dataset(
 
 def load_iteration_dataset(
         iteration: int,
-        use_letters_for_names:bool=False
+        use_letters_for_names:bool=False,
+        keep_evaluation_week: bool=False
 ) -> dict[str, pd.DataFrame]:
     """
     Load dataset as it was made available during the competition until the requested
@@ -274,7 +275,10 @@ def load_iteration_dataset(
     use_letters_for_names : bool, default False
         If True, uses alphabetical names for DMAs (e.g., 'DMA A', 'DMA B', 'DMA C').
         If False, uses numerical names for DMAs (e.g., 'DMA 1', 'DMA 2').
-    
+    keep_evaluation_week: bool, default False
+        If True, the week to forecast appears in the 'dma-inflow' DataFrame but all the values are NaN.
+        If False, the 'dma-inflow' DataFrame is one week shorter than the calendar and the weather DataFrames. 
+
     Returns
     -------
     dict[str, pd.DataFrame]
@@ -299,7 +303,7 @@ def load_iteration_dataset(
     ValueError
         If iteration is not an integer or is outside the valid range [1, 4].
     TypeError
-        If use_letters_for_names is not a boolean value.
+        If use_letters_for_names or keep_evaluation_week are not a boolean value.
     
     Notes
     -----
@@ -323,6 +327,9 @@ def load_iteration_dataset(
         raise ValueError(f"iteration must be an integer between 1 and {N_EVAL_WEEKS} inclusive")
     if not isinstance(use_letters_for_names, bool):
         raise TypeError("use_letters_for_names must be a bool")
+    if not isinstance(keep_evaluation_week, bool):
+        raise TypeError("keep_evaluation_week must be a bool")
+
     dataset = load_complete_dataset(use_letters_for_names=use_letters_for_names)
 
     # Keep only the data until that iteration release.
@@ -336,5 +343,10 @@ def load_iteration_dataset(
     # Adjust the inflows dataset to remove the test data. Set the values to NaN
     mask = filtered_dataset[CALENDAR_KEY][EVALUATION_WEEK]
     filtered_dataset[DMA_INFLOWS_KEY].loc[mask, :] = float('nan')
+
+    # Shorten the dataset and remove the week to forecast (it is all nans) unless
+    # request from the user with the parameter
+    if not keep_evaluation_week:
+        filtered_dataset[DMA_INFLOWS_KEY] = filtered_dataset[DMA_INFLOWS_KEY].iloc[:-168]
 
     return filtered_dataset
