@@ -1,6 +1,6 @@
 [project]
 name = "wf4bwdf"
-version = "0.1.5"
+version = "0.1.6"
 description = "Water-Futures Team implementation of the Battle of the Water Demand Forecasting"
 readme = "README.md"
 license = "MIT"
@@ -28,3 +28,9 @@ Repository = "https://github.com/WaterFutures/wf4bwdf"
 [build-system]
 requires = ["uv_build>=0.8.17,<0.9.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]

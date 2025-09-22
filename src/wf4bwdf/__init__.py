@@ -1,8 +1,7 @@
-from ._data_loading import load_complete_dataset, load_iteration_dataset
+from pathlib import Path
 
-def hello() -> str:
-    print("Complete dataset:")
-    print(load_complete_dataset())
-    print("Filtered iter 1:")
-    print(load_iteration_dataset(1, use_letters_for_names=True))
-    return "Hello from WF 4 BWDF!"
+import pandas as pd
+
+from ._data_loading import load_complete_dataset, load_iteration_dataset
+from ._solution_evaluation import evaluate
+# from ._solutions_loading import _read_and_process_bwdf_competitors_solutions as bwdf_competitors_solutions
