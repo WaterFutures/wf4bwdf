@@ -1,6 +1,6 @@
 [project]
 name = "wf4bwdf"
-version = "0.1.3"
+version = "0.1.4"
 description = "Water-Futures Team implementation of the Battle of the Water Demand Forecasting"
 readme = "README.md"
 license = "MIT"
@@ -17,6 +17,7 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "holidays>=0.81",
     "openpyxl>3.1",
     "pandas>2.1.0",
 ]
