@@ -1,8 +1,17 @@
 [project]
 name = "wf4bwdf"
-version = "0.1.0"
+version = "0.1.1"
 description = "Water-Futures Team implementation of the Battle of the Water Demand Forecasting"
 readme = "README.md"
+license = "MIT"
+license-files=["LICENSE"]
+keywords=["water", "water demand", "forecasting", "urban water systems", "battle", "competition", "battle water networks"]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11"
+]
 authors = [
     { name = "Dennis Zanutto", email = "dennis.zanutto@polimi.it" }
 ]
@@ -10,6 +19,9 @@ requires-python = ">=3.11"
 dependencies = [
     "pandas>2.1.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/WaterFutures/wf4bwdf"
 
 [build-system]
 requires = ["uv_build>=0.8.17,<0.9.0"]
