@@ -13,7 +13,14 @@ classifiers = [
     "Programming Language :: Python :: 3.11"
 ]
 authors = [
-    { name = "Dennis Zanutto", email = "dennis.zanutto@polimi.it" }
+    {name = "S. Alvisi"},
+    {name = "M. Franchini"},
+    {name = "V. Marsili"},
+    {name = "F. Mazzoni", email = "filippo.mazzoni@unife.it"},
+    {name = "E. Salomons"}
+]
+maintainers = [
+    {name = "Dennis Zanutto", email = "dennis.zanutto@polimi.it"},
 ]
 requires-python = ">=3.11"
 dependencies = [
@@ -23,7 +30,11 @@ dependencies = [
 ]
 
 [project.urls]
+Homepage = "https://github.com/yourusername/bwdf-implementation"
+Documentation = "https://github.com/yourusername/bwdf-implementation#readme"
 Repository = "https://github.com/WaterFutures/wf4bwdf"
+"Paper" = "https://ascelibrary.org/doi/full/10.1061/JWRMD5.WRENG-6887"
+"Supplementary information" = "https://ascelibrary.org/doi/suppl/10.1061/JWRMD5.WRENG-6887/suppl_file/supplemental_materials_jwrmd5.wreng-6887_alvisi.zip"
 
 [build-system]
 requires = ["uv_build>=0.8.17,<0.9.0"]

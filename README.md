@@ -70,6 +70,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 The data used in this project have been downloaded from the open access work of Alvisi et al. (2025).
 Those data are available under the terms of Creative Commons Attribution 4.0 International license, https://creativecommons.org/licenses/by/4.0/.
 
