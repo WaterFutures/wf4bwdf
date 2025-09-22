@@ -1,0 +1,160 @@
+# Authors
+
+This file lists all the authors of the original "Battle of Water Demand Forecasting" paper. This implementation is based on their research work.
+
+## Competition Organizers
+
+- S. Alvisi
+- M. Franchini
+- V. Marsili
+- F. Mazzoni
+- E. Salomons
+
+## Original Competitors
+
+- A. Abokifa
+- K. Arsova
+- F. Ayyash
+- H. Bae
+- R. Barreira
+- L. Basto
+- S. Bayer
+- E. Z. Berglund
+- D. Biondi
+- F. Boloukasli Ahmadgourabi
+- B. Brentan
+- J. Caetano
+- F. Campos
+- H. Cao
+- S. Cardona
+- E. P. Carreño Alvarado
+- N. Carriço
+- G.-A. Chatzistefanou
+- Y. Coy
+- E. Creaco
+- S. Cuomo
+- A. de Klerk
+- A. Di Nardo
+- M. DiCarlo
+- U. Dittmer
+- R. Dziedzic
+- A. Ebrahim Bakhshipour
+- D. Eliades
+- R. Farmani
+- B. Ferreira
+- A. Gabriele
+- M. M. Gamboa-Medina
+- F. Gao
+- J. Gao
+- R. Gargano
+- M. Geranmehr
+- C. Giudicianni
+- K. Glynis
+- S. Gómez
+- L. González
+- M. Groß
+- H. Guo
+- M. N. Habibi
+- A. Haghighi
+- B. Hammer
+- L. Hans
+- M. Hayslep
+- Y. He
+- L. Hermes
+- M. Herrera
+- F. Hinder
+- B. Hou
+- M. Housh
+- A. Iglesias-Rey
+- P. L. Iglesias-Rey
+- I.-S. Jang
+- J. Izquierdo
+- M. S. Jahangir
+- C. Jara-Arriagada
+- B. Jenks
+- G. Johnen
+- M. Kalami Heris
+- M. Kalumba
+- M.-S. Kang
+- M. Khashei Varnamkhasti
+- K.-J. Kim
+- J. Kley-Holsteg
+- T. Ko
+- A. Koochali
+- P. Kossieris
+- P. Koundouri
+- C. Kühnert
+- A. Kulaczkowski
+- J. Lee
+- K. Li
+- Y. Li
+- H. Liu
+- Y. Liu
+- C. A. López-Hojas
+- A. Maier
+- C. Makropoulos
+- F. J. Martínez-Solano
+- N. H. Marzouny
+- A. Menapace
+- C. Michalopoulos
+- G. Moraitis
+- H. Mousa
+- H. Namdari
+- D. Nikolopoulos
+- M. Oberascher
+- A. Ostfeld
+- M. Pagano
+- F. Pasha
+- J. Perafán
+- G. Perelman
+- J. Pesantez
+- M. Polycarpou
+- M. G. Quarta
+- Q. Que
+- J. Quilty
+- C. Quintiliani
+- A. Ramachandran
+- G. Reynoso Meza
+- V. Rodriguez
+- Y. Romano
+- J. Saldarriaga
+- A. K. Salem
+- P. Samartzis
+- G. F. Santonastaso
+- D. Savic
+- V. Schiano Di Cola
+- D. Schol
+- A. G. Seyoum
+- R. Shen
+- K. Simukonda
+- A. Sinske
+- R. Sitzenfrei
+- B. Sonnenschein
+- I. Stoianov
+- A. Tabares
+- E. Todini
+- L. Tsiami
+- I. Tsoukalas
+- A.-J. Ulusoy
+- L. Vamvakeridou-Lyroudia
+- A. van Heerden
+- J. Vaquet
+- V. Vaquet
+- S. Wallner
+- M. Walraad
+- D. Wang
+- S. Wu
+- W. Wu
+- A. Wunsch
+- Y. Yao
+- J. Yu
+- A. Zanfei
+- D. Zanutto
+- H. Zhang
+- M. Ziebarth
+- F. Ziel
+- J. Zou
+
+---
+
+**Citation**: If you use this implementation, please cite the original paper: Alvisi, S., Franchini, M., Marsili, V., et al. (2025). Battle of Water Demand Forecasting. *Journal of Water Resources Planning and Management*, 151(10), 04025049. DOI: [10.1061/JWRMD5.WRENG-6887](https://doi.org/10.1061/JWRMD5.WRENG-6887)
