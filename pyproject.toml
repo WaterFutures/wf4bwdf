@@ -1,16 +1,18 @@
 [project]
 name = "wf4bwdf"
-version = "0.1.7"
-description = "Water-Futures Team implementation of the Battle of the Water Demand Forecasting"
+version = "0.1.8"
+description = "Water-Futures Team's implementation of the Battle of the Water Demand Forecasting"
 readme = "README.md"
 license = "MIT"
 license-files=["LICENSE"]
 keywords=["water", "water demand", "forecasting", "urban water systems", "battle", "competition", "battle water networks"]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11"
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
 ]
 authors = [
     {name = "S. Alvisi"},
@@ -30,11 +32,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/bwdf-implementation"
-Documentation = "https://github.com/yourusername/bwdf-implementation#readme"
+Documentation = "https://github.com/WaterFutures/wf4bwdf#readme"
 Repository = "https://github.com/WaterFutures/wf4bwdf"
 "Paper" = "https://ascelibrary.org/doi/full/10.1061/JWRMD5.WRENG-6887"
-"Supplementary information" = "https://ascelibrary.org/doi/suppl/10.1061/JWRMD5.WRENG-6887/suppl_file/supplemental_materials_jwrmd5.wreng-6887_alvisi.zip"
+"Paper supplementary information" = "https://ascelibrary.org/doi/suppl/10.1061/JWRMD5.WRENG-6887/suppl_file/supplemental_materials_jwrmd5.wreng-6887_alvisi.zip"
 
 [build-system]
 requires = ["uv_build>=0.8.17,<0.9.0"]
