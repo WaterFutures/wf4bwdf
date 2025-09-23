@@ -1,6 +1,6 @@
 [project]
 name = "wf4bwdf"
-version = "0.1.7"
+version = "0.1.8"
 description = "Water-Futures Team's implementation of the Battle of the Water Demand Forecasting"
 readme = "README.md"
 license = "MIT"
